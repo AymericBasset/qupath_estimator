@@ -61,8 +61,8 @@ if uploaded_file:
 
         # Select Train and Test classes
         TRAIN_CLASS_NAME = st.selectbox(
-            "Select Train Class:", unique_values)
-        TEST_CLASS_NAME = st.selectbox("Select Test Class:", [
+            "Select Train Subset:", unique_values)
+        TEST_CLASS_NAME = st.selectbox("Select Test Subset:", [
             val for val in unique_values if val != TRAIN_CLASS_NAME])
 
         # Get unique values from the selected classification column
@@ -70,7 +70,7 @@ if uploaded_file:
 
         # Select Positive Classes
         POSITIVE_CLASSES = st.multiselect(
-            "Select Positive Classes:", category_values)
+            "Select Positive Labels:", category_values)
         if len(POSITIVE_CLASSES) > 0:
             # Split data into training and testing sets based on TRAIN_TEST_COLUMN
             df_train = df[df[TRAIN_TEST_COLUMN] == TRAIN_CLASS_NAME]
