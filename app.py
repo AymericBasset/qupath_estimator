@@ -41,9 +41,6 @@ def bootstrap_metrics(y_true, y_proba, n_bootstrap=100):
     return aucs, prs
 
 
-# Streamlit App Title
-st.title("Classifier Performance Evaluation")
-
 # File Upload
 uploaded_file = st.file_uploader("Upload CSV file", type="csv")
 
@@ -140,7 +137,7 @@ if uploaded_file:
         # Classification Report for Train
         y_pred_train = (y_proba_train > 0.5).astype(int)
         report_train = classification_report(
-            y_train, y_pred_train, output_dict=True)
+            y_train, y_pred_train, output_dict=True, zero_division=0)
         report_df_train = pd.DataFrame(report_train).transpose()
 
         # Confusion Matrix for Train
@@ -167,7 +164,7 @@ if uploaded_file:
         # Classification Report for Test
         y_pred_test = (y_proba_test > 0.5).astype(int)
         report_test = classification_report(
-            y_test, y_pred_test, output_dict=True)
+            y_test, y_pred_test, output_dict=True, zero_division=0)
         report_df_test = pd.DataFrame(report_test).transpose()
 
         # Confusion Matrix for Test
@@ -273,7 +270,7 @@ if uploaded_file:
         for threshold in thresholds:
             y_pred_threshold = (y_proba_test >= threshold).astype(int)
             report = classification_report(
-                y_test, y_pred_threshold, output_dict=True)
+                y_test, y_pred_threshold, output_dict=True, zero_division=0)
             precision_list.append(report['1']['precision'])
             recall_list.append(report['1']['recall'])
             f1_list.append(report['1']['f1-score'])
